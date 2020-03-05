@@ -1,28 +1,23 @@
 class Solution {
 public:
-    int minCostClimbingStairs(vector<int>& cost) {
-        vector<int> dp;
-        for(int i = 0; i <= cost.size(); i++){
-            if(i == 0 || i == 1){
-                dp.push_back(cost[i]);
-            }
-            else{
-                if(dp[i-1] < dp[i-2]){
-                    dp.push_back(dp[i-1]+cost[i]);
+    string longestPalindrome(string s) {
+        bool dp[s.size()][s.size()];
+        for(int i = 0; i<s.size();i++){
+            dp[i][i] = true;
+        }
+        int index1 = 0;
+        int index2 = 0;
+        for(int i = 0; i<s.size()-1;i++){
+            for(int j = i+1; j<s.size();j++){
+                if(dp[i+1][j-1] && s.at(i) == s.at(j)){
+                    dp[i][j] = true;
+                    if(i - j > index1- index2){
+                        index1 = i;
+                        index2 = j;
+                    }
                 }
-                else{
-                    dp.push_back(dp[i-2]+cost[i]);
-                }
-            }
-        }
-        if(dp.size() >= 2){
-            if(dp[dp.size()-1] < dp[dp.size()-2]){
-                return dp[dp.size()-1];
-            }
-            return dp[dp.size()-2];
-        }
-        else{
-            return dp[0];
-        }
+                   }
+                   }
+                   return s.substr(index1,index2-index1);
     }
 };
