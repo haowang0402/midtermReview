@@ -1,6 +1,7 @@
 #include <string>
 #include <cmath>
 #include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 int buffyText(vector<string> texts, int M){
@@ -9,12 +10,17 @@ int buffyText(vector<string> texts, int M){
     dp.push_back(0);
     for(string s: texts){
       if(s.size() < remainingSpace){
-        dp.push_back(dp[dp.size()-2]+(int)pow(remainingSpace,3));
-        remainingSpace = remainingSpace-s.size()-1;
+        dp.push_back(dp[dp.size()-1]);
+        remainingSpace = remainingSpace-s.size();
+        printf(" %s",s.c_str() );
       }
       else{
+        if(dp.size()!=1){
+          printf("\n");
+        }
         dp.push_back(dp[dp.size()-2]+(int)pow(remainingSpace,3));
         remainingSpace = M - s.size();
+        printf("%s",s.c_str());
       }
     }
     return dp[texts.size()];
@@ -22,10 +28,16 @@ int buffyText(vector<string> texts, int M){
 
 int main(){
   vector<string> texts;
-  texts.push_back("I");
-  texts.push_back("love");
-  texts.push_back("play");
-  texts.push_back("TF");
-  int a = buffyText(texts,7);
-  printf("%d\n",a);
+  fstream file;
+  string word, filename;
+  filename = "buffyText.txt";
+  file.open(filename.c_str());
+  while (file >> word)
+  {
+      texts.push_back(word);
+  }
+  int a = buffyText(texts,40);
+  printf("%d\n",a );
+  int b = buffyText(texts,72);
+  printf("%d\n",b );
 }
