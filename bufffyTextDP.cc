@@ -6,13 +6,13 @@ using namespace std;
 
 
 void buffyText(vector<string> texts, int M){
-  int extraspaces[texts.size()][min(texts.size(),M)];
-  int cost[texts.size()][min(texts.size(),M)];
+  int extraspaces[texts.size()][texts.size()];
+  int cost[texts.size()][texts.size()];
   int dp[texts.size()+1];
   int cut[texts.size()];
   for(int i = 0; i<texts.size();i++){
     extraspaces[i][i] = M -texts[i].size();
-    for(int j = i+1 ; j<cost[0].size();j++){
+    for(int j = i+1 ; j<texts.size();j++){
       extraspaces[i][j] = extraspaces[i][j-1]-1-texts[j].size();
     }
   }
